@@ -4,14 +4,18 @@
 
 #include <stdio.h>
 #include "chai3d.h"
-#include "<vector>"
+#include <vector>
 
 
 
 using namespace chai3d;
+using namespace std;
 
-class {
-  cShapeSphere point;
+class Sphere 
+{
+
+  double mass = 0.5; // Kg
+  cVector3d velocity = cVector3d(0,0,0); // m/s
   
   // Is the sphere capable of moving
   bool fixed;
@@ -20,7 +24,10 @@ class {
   //vector<Spring*> springsAttached;
   
 public:
-  
+
+  // graphical component of the sphere
+  cShapeSphere* point;
+
   Sphere(cVector3d, bool stationary = false);
   
   // Goes through the list of calculated forces and applies them to the sphere

@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "chai3d.h"
+#include "Sphere.h"
 
 class Spring
 {
@@ -15,6 +16,8 @@ public:
   
   Spring(Sphere*, Sphere*, double);
   
+  cShapeLine* line;
+
   void calculateForces();
   
 };

@@ -8,7 +8,7 @@
 #include "chai3d.h"
 //------------------------------------------------------------------------------
 #include <GLFW/glfw3.h>
-#include "Sphere.h"
+#include "Scene.h"
 //------------------------------------------------------------------------------
 using namespace chai3d;
 using namespace std;
@@ -58,6 +58,10 @@ cLabel* labelRates;
 
 // a small sphere (cursor) representing the haptic device 
 cShapeSphere* cursor;
+
+Scene* scene;
+cPrecisionClock timer;
+
 
 // flag to indicate if the haptic simulation currently running
 bool simulationRunning = false;
@@ -225,7 +229,7 @@ int main(int argc, char* argv[])
     world->addChild(camera);
 
     // position and orient the camera
-    camera->set( cVector3d (0.5, 0.0, 0.0),    // camera position (eye)
+    camera->set( cVector3d (0.4, 0.0, 0.4),    // camera position (eye)
                  cVector3d (0.0, 0.0, 0.0),    // look at position (target)
                  cVector3d (0.0, 0.0, 1.0));   // direction of the (up) vector
 
@@ -256,9 +260,12 @@ int main(int argc, char* argv[])
 
     // create a sphere (cursor) to represent the haptic device
     cursor = new cShapeSphere(0.01);
+    scene = new Scene();
 
     // insert cursor inside world
     world->addChild(cursor);
+    scene->addToWorld(world);
+
 
 
     //--------------------------------------------------------------------------
@@ -486,6 +493,9 @@ void updateHaptics(void)
     simulationRunning  = true;
     simulationFinished = false;
 
+    timer.start();
+
+
     // main haptic simulation loop
     while(simulationRunning)
     {
@@ -522,6 +532,10 @@ void updateHaptics(void)
         cVector3d torque(0, 0, 0);
         double gripperForce = 0.0;
 
+        double t = timer.getCurrentTimeSeconds();
+        timer.start(true);
+
+        scene->calculateForces(position, t);
 
         /////////////////////////////////////////////////////////////////////
         // APPLY FORCES
