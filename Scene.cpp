@@ -1,17 +1,15 @@
 #include "Scene.h"
 
 Scene::Scene()
-{
-  int size = 3;
-  
+{  
   for (int i = -size; i <= size; ++i)
   {
     spheres.push_back(vector<Sphere*>());
     for (int j = -size; j <= size; ++j)
     {
       Sphere* s = new Sphere(cVector3d((double)i * 0.075, (double)j* 0.075, 0), 
-        //abs(i*j) == size *size);
-        abs(i) == size || abs(j) == size);
+        abs(i*j) == size *size);
+        //abs(i) == size || abs(j) == size);
       s->point->m_material->setGrayDarkSlate();
       spheres[i + size].push_back(s);
     }
@@ -23,17 +21,17 @@ Scene::Scene()
     {
       double s = 1;
       if (i == 0 || i == spheres.size() - 2)
-        s += 0.5;
+        s += 2;
 
       if (j == 0 || j == spheres[i].size() - 2)
-        s += 0.5;
+        s += 2;
 
       
       if (j < spheres[i].size() -1)
-        springs.push_back(new Spring(spheres[i][j], spheres[i][j + 1], 200 * s));
+        springs.push_back(new Spring(spheres[i][j], spheres[i][j + 1], 10 * s));
       
       if (i < spheres.size() - 1)
-        springs.push_back(new Spring(spheres[i][j], spheres[i + 1][j], 200 * s));
+        springs.push_back(new Spring(spheres[i][j], spheres[i + 1][j], 10 * s));
     }
   }
 }

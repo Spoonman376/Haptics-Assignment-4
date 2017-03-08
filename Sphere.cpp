@@ -18,7 +18,7 @@ void Sphere::updateSphere(double time)
 
   forcesToBeApplied.clear();
 
-  double cair = 1;
+  double cair = 0.5;
   cVector3d Fdamping = -cair * velocity;
 
   cVector3d acc = (force + Fdamping) / mass;

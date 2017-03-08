@@ -26,7 +26,7 @@ public:
 
   // graphical component of the sphere
   cShapeSphere* point;
-  double mass = 1.0; // Kg
+  double mass = 0.001; // Kg
 
 
   Sphere(cVector3d, bool stationary = false);

@@ -7,6 +7,8 @@ class Scene
 {
   vector<vector<Sphere*>> spheres;
   vector<Spring*> springs;
+  int size = 4;
+
 
 public:
 
