@@ -2,14 +2,16 @@
 
 Scene::Scene()
 {
-  for (int i = -2; i <= 2; ++i)
+  int size = 3;
+  
+  for (int i = -size; i <= size; ++i)
   {
     spheres.push_back(vector<Sphere*>());
-    for (int j = -2; j <= 2; ++j)
+    for (int j = -size; j <= size; ++j)
     {
-      Sphere* s = new Sphere(cVector3d((double)i * 0.1, (double)j* 0.1, 0), abs(i * j) == 4);
+      Sphere* s = new Sphere(cVector3d((double)i * 0.075, (double)j* 0.075, 0), abs(i*j) == size *size);//abs(i) == size || abs(j) == size);
       s->point->m_material->setGrayDarkSlate();
-      spheres[i + 2].push_back(s);
+      spheres[i + size].push_back(s);
     }
   }
 
@@ -17,11 +19,19 @@ Scene::Scene()
   {
     for (int j = 0; j < spheres[i].size(); ++j)
     {
+      double s = 1;
+      if (i == 0 || i == spheres.size() - 2)
+        s += 0.5;
+
+      if (j == 0 || j == spheres[i].size() - 2)
+        s += 0.5;
+
+      
       if (j < spheres[i].size() -1)
-        springs.push_back(new Spring(spheres[i][j], spheres[i][j + 1], 200));
+        springs.push_back(new Spring(spheres[i][j], spheres[i][j + 1], 200 * s));
       
       if (i < spheres.size() - 1)
-        springs.push_back(new Spring(spheres[i][j], spheres[i + 1][j], 200));
+        springs.push_back(new Spring(spheres[i][j], spheres[i + 1][j], 200 * s));
     }
   }
 }
@@ -46,7 +56,7 @@ cVector3d Scene::calculateForces(cVector3d toolPos, double t)
   for (vector<Sphere*> vs : spheres)
   {
     for (Sphere* s : vs)
-      s->addForce(cVector3d(0, 0, -9.81) * 0.5);
+      s->addForce(cVector3d(0, 0, -9.81) * s->mass);
   }
 
   for (vector<Sphere*> vs : spheres)

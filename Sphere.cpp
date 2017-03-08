@@ -4,7 +4,7 @@
 Sphere::Sphere(cVector3d pos, bool stationary)
 {
   fixed = stationary;
-  point = new cShapeSphere(0.01);
+  point = new cShapeSphere(0.02);
   point->setLocalPos(pos);
 
 }
@@ -18,7 +18,7 @@ void Sphere::updateSphere(double time)
 
   forcesToBeApplied.clear();
 
-  double cair = 0.5;
+  double cair = 1;
   cVector3d Fdamping = -cair * velocity;
 
   cVector3d acc = (force + Fdamping) / mass;
