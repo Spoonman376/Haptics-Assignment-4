@@ -9,7 +9,9 @@ Scene::Scene()
     spheres.push_back(vector<Sphere*>());
     for (int j = -size; j <= size; ++j)
     {
-      Sphere* s = new Sphere(cVector3d((double)i * 0.075, (double)j* 0.075, 0), abs(i*j) == size *size);//abs(i) == size || abs(j) == size);
+      Sphere* s = new Sphere(cVector3d((double)i * 0.075, (double)j* 0.075, 0), 
+        //abs(i*j) == size *size);
+        abs(i) == size || abs(j) == size);
       s->point->m_material->setGrayDarkSlate();
       spheres[i + size].push_back(s);
     }
