@@ -59,7 +59,9 @@ cLabel* labelRates;
 // a small sphere (cursor) representing the haptic device 
 cShapeSphere* cursor;
 
-Scene* scene;
+Scene* scene1;
+Scene* scene2;
+Scene* currentScene;
 cPrecisionClock timer;
 
 
@@ -229,7 +231,7 @@ int main(int argc, char* argv[])
     world->addChild(camera);
 
     // position and orient the camera
-    camera->set( cVector3d (0.7, 0.0, 0.6),    // camera position (eye)
+    camera->set( cVector3d (0.2, 0.0, 0.125),    // camera position (eye)
                  cVector3d (0.0, 0.0, 0.0),    // look at position (target)
                  cVector3d (0.0, 0.0, 1.0));   // direction of the (up) vector
 
@@ -260,11 +262,15 @@ int main(int argc, char* argv[])
 
     // create a sphere (cursor) to represent the haptic device
     cursor = new cShapeSphere(0.01);
-    scene = new Scene();
+    scene1 = new Scene();
+    scene2 = new Scene();
+    scene1->Scene1();
+    scene2->Scene2();
+    currentScene = scene1;
 
     // insert cursor inside world
     world->addChild(cursor);
-    scene->addToWorld(world);
+    currentScene->addToWorld(world);
 
 
 
@@ -429,6 +435,29 @@ void keyCallback(GLFWwindow* a_window, int a_key, int a_scancode, int a_action, 
         mirroredDisplay = !mirroredDisplay;
         camera->setMirrorVertical(mirroredDisplay);
     }
+
+    else if (a_key == GLFW_KEY_1)
+    {
+      world->clearAllChildren();
+      world->addChild(cursor);
+      currentScene = scene1;
+      currentScene->addToWorld(world);
+
+      camera->set(cVector3d(0.2, 0.0, 0.125),    // camera position (eye)
+                  cVector3d(0.0, 0.0, 0.0),    // look at position (target)
+                  cVector3d(0.0, 0.0, 1.0));   // direction of the (up) vector
+    }
+    else if (a_key == GLFW_KEY_2)
+    {
+      world->clearAllChildren();
+      world->addChild(cursor);
+      currentScene = scene2;
+      currentScene->addToWorld(world);
+
+      camera->set(cVector3d(0.25, 0.0, 0),    // camera position (eye)
+                  cVector3d(0.0, 0.0, 0.0),    // look at position (target)
+                  cVector3d(0.0, 0.0, 1.0));   // direction of the (up) vector
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -535,7 +564,7 @@ void updateHaptics(void)
         double t = timer.getCurrentTimeSeconds();
         timer.start(true);
 
-        scene->calculateForces(position, t);
+        force = currentScene->calculateForces(position, 0.01, t);
 
         /////////////////////////////////////////////////////////////////////
         // APPLY FORCES

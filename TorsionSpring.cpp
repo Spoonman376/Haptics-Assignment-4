@@ -15,6 +15,8 @@ void TorsionSpring::calculateForces()
   cVector3d p = pivot->getPosition();
   cVector3d b = pointB->getPosition();
 
+
+
 }
 
 

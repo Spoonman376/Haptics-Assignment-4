@@ -10,15 +10,17 @@ class Spring
 {
   Sphere* pointA;
   Sphere* pointB;
+  double restLength;
   double k;
   
 public:
   
-  Spring(Sphere*, Sphere*, double);
+  Spring(Sphere*, Sphere*, double, double);
   
   cShapeLine* line;
 
   void calculateForces();
+  void updateSpring();
   
 };
 

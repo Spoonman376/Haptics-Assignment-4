@@ -7,16 +7,15 @@ class Scene
 {
   vector<vector<Sphere*>> spheres;
   vector<Spring*> springs;
-  int size = 4;
-
 
 public:
 
-  Scene();
+  void Scene1();
+  void Scene2();
 
   void addToWorld(cWorld*);
 
-  cVector3d calculateForces(cVector3d, double);
+  cVector3d calculateForces(cVector3d, double, double);
 
 
 
