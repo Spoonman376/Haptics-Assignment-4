@@ -28,10 +28,10 @@ void Scene::Scene1()
 
 
       if (j < spheres[i].size() -1)
-        springs.push_back(new Spring(spheres[i][j], spheres[i][j + 1], sphereDistance, 2000, 0));
+        springs.push_back(new Spring(spheres[i][j], spheres[i][j + 1], sphereDistance, 4000, 0));
       
       if (i < spheres.size() - 1)
-        springs.push_back(new Spring(spheres[i][j], spheres[i + 1][j], sphereDistance, 2000, 0));
+        springs.push_back(new Spring(spheres[i][j], spheres[i + 1][j], sphereDistance, 4000, 0));
     }
   }
 }

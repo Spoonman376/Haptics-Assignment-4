@@ -26,7 +26,7 @@ public:
 
   // graphical component of the sphere
   cShapeSphere* point;
-  double mass = 0.01; // Kg
+  double mass = 1; // Kg
   cVector3d velocity = cVector3d(0,0,0); // m/s
 
 
