@@ -2,12 +2,13 @@
 #include "Spring.h"
 
 
-Spring::Spring(Sphere* a, Sphere* b, double rest, double stiffness)
+Spring::Spring(Sphere* a, Sphere* b, double rest, double stiffness, double d)
 {
   pointA = a;
   pointB = b;
   restLength = rest;
   k = stiffness;
+  damp = d;
   
   line = new cShapeLine(pointA->getPosition(), pointB->getPosition());
   line->m_material->setYellow();
@@ -23,11 +24,10 @@ void Spring::calculateForces()
   forceD.normalize();
   double forceL = (a - b).length() - restLength;
 
-
   cVector3d force = -k * forceD * forceL;
 
-  pointA->addForce(force);
-  pointB->addForce(-force);
+  pointA->addForce(force - damp * pointA->velocity);
+  pointB->addForce(-force - damp * pointA->velocity);
 }
 
 void Spring::updateSpring()

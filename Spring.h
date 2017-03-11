@@ -12,10 +12,11 @@ class Spring
   Sphere* pointB;
   double restLength;
   double k;
+  double damp; // Ns/m
   
 public:
   
-  Spring(Sphere*, Sphere*, double, double);
+  Spring(Sphere*, Sphere*, double, double, double);
   
   cShapeLine* line;
 

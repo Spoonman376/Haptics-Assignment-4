@@ -223,6 +223,8 @@ int main(int argc, char* argv[])
     // create a new world.
     world = new cWorld();
 
+  printf("");
+  
     // set the background color of the environment
     world->m_backgroundColor.setBlack();
 

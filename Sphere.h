@@ -14,7 +14,6 @@ using namespace std;
 class Sphere 
 {
 
-  cVector3d velocity = cVector3d(0,0,0); // m/s
   
   // Is the sphere capable of moving
   bool fixed;
@@ -27,7 +26,8 @@ public:
 
   // graphical component of the sphere
   cShapeSphere* point;
-  double mass = 0.006; // Kg
+  double mass = 0.01; // Kg
+  cVector3d velocity = cVector3d(0,0,0); // m/s
 
 
   Sphere(cVector3d, double, bool stationary = false);

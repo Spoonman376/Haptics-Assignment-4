@@ -7,6 +7,7 @@ class Scene
 {
   vector<vector<Sphere*>> spheres;
   vector<Spring*> springs;
+  double gravityMultiplier;
 
 public:
 
